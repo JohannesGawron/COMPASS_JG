@@ -517,7 +517,7 @@ std::string Node::get_label_simple(std::set<int> excluded_mutations){
                 if (data.locus_to_name[i].size()>12 && data.locus_to_name[i].substr(data.locus_to_name[i].size()-12,12)=="splice-donor") nonsyn_mut = true;
                 bool somatic_nonsyn_mut = nonsyn_mut && data.locus_to_freq[i]==0.0;
                 if (somatic_nonsyn_mut) label+="<B>";
-                label+= data.locus_to_name[i]+"(chr"+data.locus_to_chromosome[mut]+")";
+                label+= data.locus_to_name[i];
                 if (somatic_nonsyn_mut) label+="</B>";
                 label+="<br/>";
             }
