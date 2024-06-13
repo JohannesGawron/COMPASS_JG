@@ -151,6 +151,8 @@ int main(int argc, char* argv[]){
     results.resize(n_chains);
     std::vector<Tree> best_trees{};
     best_trees.resize(n_chains);
+    std::vector<Inference> chains{};
+    chains.resize(n_chains);
     if (n_chains<omp_get_num_procs()) omp_set_num_threads(n_chains);
     else omp_set_num_threads(omp_get_num_procs());
 
@@ -158,8 +160,8 @@ int main(int argc, char* argv[]){
     #pragma omp parallel for
 	for (int i=0;i<n_chains;i++){
 		std::srand(i);
-		Inference infer{"",temperature,i};
-        best_trees[i] = infer.find_best_tree(use_CNA,chain_length,burn_in);
+        chains[i] = Inference{"", temperature, i};
+        best_trees[i] = chains[i].find_best_tree(use_CNA,chain_length,burn_in);
 		results[i]=best_trees[i].log_score;
 	}
     double best_score=-DBL_MAX;
@@ -174,9 +176,8 @@ int main(int argc, char* argv[]){
     else best_trees[best_score_index].to_dot(output,false);
 
     std::string gv_filename(output);
-    if ( output.size()<= 3 || (output.size()>3 && output.substr(output.size()-3)!=".gv")){
-        gv_filename = output + + "_tree.gv";
-    }
+     if (output.substr(output.size() - 3) != ".gv") {
+        gv_filename = output + "_tree.gv";
     std::cout<<"Completed ! The output was written to "<<output<< ". You can visualize the tree by running: dot -Tpng "<<gv_filename<<" -o output.png"<<std::endl;
 
 	return 0;

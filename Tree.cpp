@@ -577,7 +577,7 @@ void Tree::to_dot(std::string filename, bool simplified){
 
     // If filename ends with .gv: only output the tree in graphviz format. Otherwise output tree and cell assignments to nodes.
     bool full_output = true;
-    if (filename.size()>3 &&  filename.substr(filename.size()-3)==".gv"){
+    if (filename.substr(filename.size() - 3) == ".gv") {
         full_output = false;
     }
     std::string basename(filename);
@@ -598,23 +598,23 @@ void Tree::to_dot(std::string filename, bool simplified){
 
     // Identify mutations at the root which are not affected by a CNA
     std::set<int> excluded_mutations{};
-    if (simplified){
-        if (n_nodes>0){
-            for (int m: nodes[0]->get_mutations()){
-                bool affected_by_event=false;
-                for (int n=0;n<n_nodes;n++){
-                    for (auto CNA: nodes[n]->get_CNA_events()){
-                        if (data.locus_to_region[m]==std::get<0>(CNA)) affected_by_event = true;
-                    }
-                }
-                if (!affected_by_event) excluded_mutations.insert(m);
-            }
-        }
-    }
+    // if (simplified){
+    //     if (n_nodes>0){
+    //         for (int m: nodes[0]->get_mutations()){
+    //             bool affected_by_event=false;
+    //             for (int n=0;n<n_nodes;n++){
+    //                 for (auto CNA: nodes[n]->get_CNA_events()){
+    //                     if (data.locus_to_region[m]==std::get<0>(CNA)) affected_by_event = true;
+    //                 }
+    //             }
+    //             if (!affected_by_event) excluded_mutations.insert(m);
+    //         }
+    //     }
+    // }
 
     for (int i=0;i<n_nodes;i++){
         if (simplified) out_file<<i<<"[label=<"<<nodes[i]->get_label_simple(excluded_mutations)<<">];"<<std::endl;
-        else out_file<<i<<"[label=<"<<nodes[i]->get_label()<<">];"<<std::endl;
+        out_file<<i<<"[label=<"<<nodes[i]->get_label()<<">];"<<std::endl;
     }
 
     for (int k=0;k<n_nodes;k++){

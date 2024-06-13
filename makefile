@@ -1,5 +1,5 @@
 CXX	= g++
-CXXFLAGS = -std=c++11 -O2
+CXXFLAGS = -std=c++11 -O2 -fopenmp
 
 
 COMPASS: COMPASS.o Scores.o Node.o Tree.o Inference.o input.o

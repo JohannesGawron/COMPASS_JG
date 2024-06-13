@@ -5,6 +5,7 @@
 
 #include "Inference.h"
 #include "Structures.h"
+#include "Tree.h"
 
 #include <assert.h>
 
@@ -156,7 +157,14 @@ void Inference::mcmc(bool use_CNA, int nb_steps,int burn_in){
             best_tree = t;
             n_best_tree++;
         }
-        if (parameters.verbose) std::cout<<"Current best score " <<best_log_score<<std::endl;
+        if (parameters.verbose) {
+            std::cout << "Current best score " << best_log_score << std::endl;
+            std::cout << "Current dropout rates ";
+            for (int i = 0; i < n_loci; i++) {
+                std::cout << t.dropout_rates[i] << ",";
+            }
+            std::cout<<std::endl;
+        }
 
     }
 }

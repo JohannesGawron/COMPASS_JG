@@ -21,7 +21,6 @@ class Tree{
 
         // Parameters
         std::vector<double> node_probabilities; //prior attachment probabilities to each node.
-        std::vector<double> dropout_rates; // dropout rate for each locus.
         std::vector<double> dropout_rates_ref; // dropout rate of the reference allele
         std::vector<double> dropout_rates_alt; // dropout rate of the alternative allele
         std::vector<double> region_probabilities; // probability for a read to fall on each region, when there are 2 copies of each region
@@ -46,6 +45,7 @@ class Tree{
         double log_prior_score;
         double log_likelihood;
         double log_score; //complete score of the tree, including the prior and the likelihood
+        std::vector<double> dropout_rates; // dropout rate for each locus.
 
         Tree(Scores* cache, bool use_CNA); // constructor
         Tree(); // empty constructor
