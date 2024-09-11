@@ -318,5 +318,5 @@ void init_params(){
     parameters.CNA_cost=85.0; //Higher values will result in fewer CNAs
     parameters.LOH_cost=85.0; // CNLOH and losses resulting in a LOH have a higher penalty (the penalty for such an event is the sum of CNA_cost and LOH_cost)
     parameters.mut_notAtRoot_cost=10;
-    parameters.mut_notAtRoot_freq_cost=100000; // Penalty for not placing SNVs present in the 1000G database at the root.
+    parameters.mut_notAtRoot_freq_cost=0; // Penalty for not placing SNVs present in the 1000G database at the root.
 }
